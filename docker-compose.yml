@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  todolist:
+    build: .
+    environment:
+      - MONGO_URI=mongodb://172.1.23.14:27017
+    ports:
+      - "9090:9090"
+    depends_on:
+      - mongodb
+    restart: always
+    networks:
+      mynet:
+        ipv4_address: 172.1.23.13
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+    networks:
+      mynet:
+        ipv4_address: 172.1.23.14
+networks:
+  mynet:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.1.23.0/24"
