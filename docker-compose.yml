@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  todolist:
+  todolos:
     build: .
     environment:
       - MONGO_URI=mongodb://172.1.23.14:27017
